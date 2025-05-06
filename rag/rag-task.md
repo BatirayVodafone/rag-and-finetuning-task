@@ -8,7 +8,6 @@ The goal of this task is to build and evaluate a Retrieval-Augmented Generation 
 
 *   **Language Model (Generator):** `google/gemma-3-1b-it`
     *   **Link:** [https://huggingface.co/google/gemma-3-1b-it](https://huggingface.co/google/gemma-3-1b-it)
-    *   **Rationale:** Provides a capable generation baseline feasible for the Colab free tier.
 *   **Document Source:** Project Gutenberg ([https://www.gutenberg.org/](https://www.gutenberg.org/))
 *   **QA Dataset Source:** NarrativeQA dataset ([https://huggingface.co/datasets/narrativeqa](https://huggingface.co/datasets/narrativeqa))
 *   **Vector Database:** Milvus Lite *or* Qdrant (running locally/on-disk)
