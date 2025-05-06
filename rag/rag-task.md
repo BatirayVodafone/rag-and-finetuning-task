@@ -2,12 +2,12 @@
 
 ## 1. Objective
 
-The goal of this task is to build and evaluate a Retrieval-Augmented Generation (RAG) system. You will implement a pipeline that uses a chosen book from Project Gutenberg as the knowledge source, indexed using hierarchical chunking into an on-disk vector database (Milvus Lite or Qdrant), and answers questions from the NarrativeQA dataset using the `google/gemma-3-1b-it` LLM. The evaluation will focus on retrieval quality and generation accuracy under simulated resource constraints (Google Colab free tier).
+The goal of this task is to build and evaluate a Retrieval-Augmented Generation (RAG) system. You will implement a pipeline that uses a chosen book from Project Gutenberg as the knowledge source, indexed using hierarchical chunking into an on-disk vector database (Milvus Lite or Qdrant), and answers questions from the NarrativeQA dataset using the `google/gemma3-1b-it` LLM. The evaluation will focus on retrieval quality and generation accuracy under simulated resource constraints (Google Colab free tier).
 
 ## 2. Components
 
-*   **Language Model (Generator):** `google/gemma-3-1b-it`
-    *   **Link:** [https://huggingface.co/google/gemma-3-1b-it](https://huggingface.co/google/gemma-3-1b-it)
+*   **Language Model (Generator):** `google/gemma3-1b-it`
+    *   **Link:** [https://huggingface.co/google/gemma3-1b-it](https://huggingface.co/google/gemma3-1b-it)
 *   **Document Source:** Project Gutenberg ([https://www.gutenberg.org/](https://www.gutenberg.org/))
 *   **QA Dataset Source:** NarrativeQA dataset ([https://huggingface.co/datasets/narrativeqa](https://huggingface.co/datasets/narrativeqa))
 *   **Vector Database:** Milvus Lite *or* Qdrant (running locally/on-disk)
@@ -40,8 +40,8 @@ The goal of this task is to build and evaluate a Retrieval-Augmented Generation 
     2.  Query the vector database to retrieve the top-k most relevant **child chunks**. Define and justify your choice of `k`.
     3.  Implement logic to potentially retrieve the corresponding **parent chunks** for the top retrieved child chunks to provide expanded context. Describe your specific strategy (e.g., retrieve parent for top-1 child, retrieve parents for top-n children, etc.).
 *   **Context Formulation:** Combine the retrieved chunk information (either child chunks directly, parent chunks, or a mix) into a context string.
-*   **Prompt Engineering:** Design a prompt template for `gemma-3-1b-it` that incorporates the retrieved context and the original question, instructing the model to answer based *primarily* on the provided context.
-*   **Generation:** Use the `gemma-3-1b-it` model to generate an answer based on the formulated prompt and context.
+*   **Prompt Engineering:** Design a prompt template for `gemma3-1b-it` that incorporates the retrieved context and the original question, instructing the model to answer based *primarily* on the provided context.
+*   **Generation:** Use the `gemma3-1b-it` model to generate an answer based on the formulated prompt and context.
 
 ## 6. Evaluation
 
@@ -49,7 +49,7 @@ The goal of this task is to build and evaluate a Retrieval-Augmented Generation 
     *   **BLEU-4:** Measures n-gram overlap with reference answers.
     *   **ROUGE-L:** Measures longest common subsequence with reference answers.
 *   **Procedure:**
-    1.  **Baseline (No RAG):** For each question in your filtered NarrativeQA test set, generate an answer using `gemma-3-1b-it` *without* any retrieved context (zero-shot). Evaluate these answers against the ground truth using BLEU-4 and ROUGE-L.
+    1.  **Baseline (No RAG):** For each question in your filtered NarrativeQA test set, generate an answer using `gemma3-1b-it` *without* any retrieved context (zero-shot). Evaluate these answers against the ground truth using BLEU-4 and ROUGE-L.
     2.  **RAG System:** For each question, use your implemented RAG pipeline (retrieval + generation) to generate an answer. Evaluate these answers against the ground truth using BLEU-4 and ROUGE-L.
     3.  **Resource Monitoring (Qualitative):** Briefly comment on any resource challenges encountered (e.g., RAM limits during indexing/inference, disk space usage for the vector DB, inference time) particularly relating to the Colab free tier environment. Quantitative tracking (like peak memory) is encouraged if feasible but qualitative description is acceptable given potential variability.
 *   **Reporting Table:** Present results clearly:
